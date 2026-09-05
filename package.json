@@ -1,0 +1,11 @@
+{
+  "name": "swet-schedule",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-schedule.mjs"
+  },
+  "dependencies": {
+    "cheerio": "1.1.2"
+  }
+}

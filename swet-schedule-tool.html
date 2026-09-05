@@ -339,10 +339,12 @@
 
   <div class="editor">
     <h2>SWET Schedule Editor</h2>
-    <p class="sub">Pick a day to load its usual lineup, then just fix whatever changed today.</p>
+    <p class="sub">Live from Recess for the selected date. Edit anything before downloading.</p>
+
+    <div id="liveStatus" style="margin:0 0 16px;padding:11px 13px;border-radius:8px;background:#eef5df;color:#43520b;font-size:13px;line-height:1.35;">Loading live Recess schedule…</div>
 
     <div class="field" style="margin-bottom:16px;">
-      <label>Load Day Preset</label>
+        <label>Fallback Day Preset</label>
       <select id="presetSelect">
         <option value="">— Select a day —</option>
         <option value="sunday">Sunday</option>
@@ -358,7 +360,7 @@
     <div class="field-row">
       <div class="field">
         <label>Day</label>
-        <input type="text" id="dayInput" value="Thursday">
+        <input type="text" id="dayInput">
       </div>
       <div class="field">
         <label>Date</label>
@@ -473,7 +475,8 @@
     ]
   };
 
-  let classes = JSON.parse(JSON.stringify(PRESETS.thursday));
+  let classes = [];
+  let liveSchedule = {};
 
   document.getElementById('presetSelect').addEventListener('change', e => {
     const day = e.target.value;
@@ -483,6 +486,61 @@
     renderEditor();
     renderPreview();
   });
+
+  function setStatus(message, kind = 'success') {
+    const status = document.getElementById('liveStatus');
+    status.textContent = message;
+    status.style.background = kind === 'error' ? '#fff0ec' : kind === 'loading' ? '#f2f2f2' : '#eef5df';
+    status.style.color = kind === 'error' ? '#8a2f1f' : kind === 'loading' ? '#555' : '#43520b';
+  }
+
+  function getLocalIsoDate(date = new Date()) {
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit'
+    });
+    return formatter.format(date);
+  }
+
+  function updateDayFromDate(isoDate) {
+    if (!isoDate) return;
+    const dayName = new Intl.DateTimeFormat('en-US', {
+      weekday: 'long', timeZone: 'UTC'
+    }).format(new Date(`${isoDate}T12:00:00Z`));
+    document.getElementById('dayInput').value = dayName;
+  }
+
+  function loadSelectedDate() {
+    const date = document.getElementById('dateInput').value;
+    updateDayFromDate(date);
+    if (Object.prototype.hasOwnProperty.call(liveSchedule, date)) {
+      classes = JSON.parse(JSON.stringify(liveSchedule[date]));
+      setStatus(classes.length
+        ? `Live Recess schedule loaded: ${classes.length} class${classes.length === 1 ? '' : 'es'}.`
+        : 'Recess shows no classes for this date.');
+    } else {
+      const day = document.getElementById('dayInput').value.toLowerCase();
+      classes = JSON.parse(JSON.stringify(PRESETS[day] || []));
+      setStatus('Live data is not available for this date yet. Showing the editable fallback preset.', 'error');
+    }
+    document.getElementById('presetSelect').value = '';
+    renderEditor();
+    renderPreview();
+  }
+
+  async function loadLiveSchedule() {
+    setStatus('Loading live Recess schedule…', 'loading');
+    try {
+      const response = await fetch(`schedule-data.json?ts=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Schedule data returned ${response.status}`);
+      const data = await response.json();
+      liveSchedule = data.schedule || {};
+      loadSelectedDate();
+    } catch (error) {
+      console.warn('Live schedule unavailable:', error);
+      liveSchedule = {};
+      loadSelectedDate();
+    }
+  }
 
   function renderEditor() {
     const listEl = document.getElementById('classList');
@@ -603,7 +661,7 @@
   }
 
   document.getElementById('dayInput').addEventListener('input', renderPreview);
-  document.getElementById('dateInput').addEventListener('input', renderPreview);
+  document.getElementById('dateInput').addEventListener('change', loadSelectedDate);
   document.getElementById('addClassBtn').addEventListener('click', () => {
     classes.push({ time: '', name: '', instructor: '', level: 'All Level' });
     renderEditor();
@@ -689,20 +747,14 @@
     return `${month}.${day}.${year}`;
   }
 
-  // Default the date picker to today's actual date — never frozen on an old value
+  // Default to today's date in Boston, regardless of the viewer's current timezone.
   (function setDefaultDate() {
     const input = document.getElementById('dateInput');
-    if (!input.value) {
-      const now = new Date();
-      const yyyy = now.getFullYear();
-      const mm = String(now.getMonth() + 1).padStart(2, '0');
-      const dd = String(now.getDate()).padStart(2, '0');
-      input.value = `${yyyy}-${mm}-${dd}`;
-    }
+    if (!input.value) input.value = getLocalIsoDate();
+    updateDayFromDate(input.value);
   })();
 
-  renderEditor();
-  renderPreview();
+  loadLiveSchedule();
 
   // Re-run auto-fit once real fonts finish loading — the first pass can
   // measure against fallback-font metrics before Anton/JetBrains Mono apply,

@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-09-05T23:31:13.615Z",
+  "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
+  "timezone": "America/New_York",
+  "schedule": {
+    "2026-09-05": [
+      {
+        "time": "9:00 AM",
+        "name": "Gentle Stretch",
+        "instructor": "Bonnie",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "10:00 AM",
+        "name": "Barre",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "11:00 AM",
+        "name": "Beginner",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "1:00 PM",
+        "name": "Dance",
+        "instructor": "Ally",
+        "level": "Intermediate",
+        "signature": true
+      },
+      {
+        "time": "4:00 PM",
+        "name": "Beginner",
+        "instructor": "Alicia",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "5:00 PM",
+        "name": "Yoga",
+        "instructor": "Alicia",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-09-06": [
+      {
+        "time": "9:00 AM",
+        "name": "Yoga",
+        "instructor": "Alicia",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "10:00 AM",
+        "name": "Flexibility",
+        "instructor": "Yusra",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "11:15 AM",
+        "name": "Beginner",
+        "instructor": "Alicia",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "3:00 PM",
+        "name": "Fly Foundations",
+        "instructor": "Simone",
+        "level": "Intermediate",
+        "signature": true
+      },
+      {
+        "time": "4:00 PM",
+        "name": "Beginner",
+        "instructor": "Alicia",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-09-08": [
+      {
+        "time": "5:30 PM",
+        "name": "Beginner",
+        "instructor": "Bonnie",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Poses",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
+        "signature": false
+      }
+    ],
+    "2026-09-09": [
+      {
+        "time": "5:30 PM",
+        "name": "Pilates",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Yoga",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "7:30 PM",
+        "name": "Flexibility",
+        "instructor": "Yusra",
+        "level": "Intermediate",
+        "signature": false
+      }
+    ],
+    "2026-09-10": [
+      {
+        "time": "8:00 AM",
+        "name": "Stretch",
+        "instructor": "Bonnie",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "4:30 PM",
+        "name": "Beginner",
+        "instructor": "Caitlin",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "5:30 PM",
+        "name": "Yoga",
+        "instructor": "Caitlin",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Conditioning",
+        "instructor": "Jobelle",
+        "level": "All Level",
+        "signature": true
+      }
+    ],
+    "2026-09-07": [],
+    "2026-09-11": []
+  }
+}
