@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T17:22:00.474Z",
+  "generatedAt": "2026-09-06T19:33:40.215Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
@@ -118,13 +118,6 @@
         "signature": false
       },
       {
-        "time": "4:30 PM",
-        "name": "The Practice",
-        "instructor": "Lead",
-        "level": "All Level",
-        "signature": false
-      },
-      {
         "time": "5:30 PM",
         "name": "Beginner",
         "instructor": "Jennet",
@@ -152,6 +145,13 @@
         "name": "Barre",
         "instructor": "Ally",
         "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "11:00 AM",
+        "name": "Beginner",
+        "instructor": "Ally",
+        "level": "All Level",
         "signature": false
       }
     ],
