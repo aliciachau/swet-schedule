@@ -1,24 +1,8 @@
 {
-  "generatedAt": "2026-09-09T01:16:23.379Z",
+  "generatedAt": "2026-09-09T06:05:08.891Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-09-08": [
-      {
-        "time": "5:30 PM",
-        "name": "Beginner",
-        "instructor": "Bonnie",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Poses",
-        "instructor": "Bonnie",
-        "level": "Intermediate",
-        "signature": false
-      }
-    ],
     "2026-09-09": [
       {
         "time": "5:30 PM",
@@ -153,8 +137,23 @@
         "instructor": "Simone",
         "level": "Intermediate",
         "signature": true
+      },
+      {
+        "time": "4:00 PM",
+        "name": "Beginner",
+        "instructor": "Alicia",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "5:00 PM",
+        "name": "Stretch",
+        "instructor": "Alicia",
+        "level": "All Level",
+        "signature": false
       }
     ],
-    "2026-09-14": []
+    "2026-09-14": [],
+    "2026-09-15": []
   }
 }
