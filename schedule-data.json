@@ -1,38 +1,8 @@
 {
-  "generatedAt": "2026-09-11T00:12:58.327Z",
+  "generatedAt": "2026-09-11T04:46:44.233Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-09-10": [
-      {
-        "time": "8:00 AM",
-        "name": "Stretch",
-        "instructor": "Bonnie",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "4:30 PM",
-        "name": "Beginner",
-        "instructor": "Caitlin",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "5:30 PM",
-        "name": "Yoga",
-        "instructor": "Caitlin",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Conditioning",
-        "instructor": "Jobelle",
-        "level": "All Level",
-        "signature": true
-      }
-    ],
     "2026-09-11": [
       {
         "time": "7:30 AM",
@@ -153,7 +123,38 @@
         "signature": true
       }
     ],
-    "2026-09-15": [],
-    "2026-09-16": []
+    "2026-09-15": [
+      {
+        "time": "5:30 PM",
+        "name": "Beginner",
+        "instructor": "Bonnie",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Poses",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "7:30 PM",
+        "name": "Conditioning",
+        "instructor": "Jobelle",
+        "level": "All Level",
+        "signature": true
+      }
+    ],
+    "2026-09-16": [
+      {
+        "time": "5:30 PM",
+        "name": "Pilates",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
+        "signature": false
+      }
+    ],
+    "2026-09-17": []
   }
 }
