@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T22:46:01.737Z",
+  "generatedAt": "2026-09-15T00:59:19.716Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
@@ -47,13 +47,6 @@
         "instructor": "Bonnie",
         "level": "Intermediate",
         "signature": false
-      },
-      {
-        "time": "7:30 PM",
-        "name": "Conditioning",
-        "instructor": "Jobelle",
-        "level": "All Level",
-        "signature": true
       }
     ],
     "2026-09-16": [
@@ -123,6 +116,13 @@
         "instructor": "SWET",
         "level": "All Level",
         "signature": false
+      },
+      {
+        "time": "5:30 PM",
+        "name": "Conditioning",
+        "instructor": "Jobelle",
+        "level": "All Level",
+        "signature": true
       },
       {
         "time": "6:30 PM",
