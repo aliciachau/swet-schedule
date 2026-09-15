@@ -1,38 +1,8 @@
 {
-  "generatedAt": "2026-09-15T00:59:19.716Z",
+  "generatedAt": "2026-09-15T06:11:30.447Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-09-14": [
-      {
-        "time": "8:00 AM",
-        "name": "Stretch",
-        "instructor": "Bonnie",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "4:30 PM",
-        "name": "Stretch",
-        "instructor": "Jennet",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "5:30 PM",
-        "name": "Beginner",
-        "instructor": "Jennet",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Fly",
-        "instructor": "Simone",
-        "level": "All Level",
-        "signature": true
-      }
-    ],
     "2026-09-15": [
       {
         "time": "5:30 PM",
@@ -153,8 +123,38 @@
         "instructor": "Ally",
         "level": "All Level",
         "signature": false
+      },
+      {
+        "time": "1:00 PM",
+        "name": "Dance",
+        "instructor": "Ally",
+        "level": "Intermediate",
+        "signature": true
       }
     ],
-    "2026-09-20": []
+    "2026-09-20": [
+      {
+        "time": "9:00 AM",
+        "name": "Yoga",
+        "instructor": "Ally",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "10:00 AM",
+        "name": "Flexibility",
+        "instructor": "Ally",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "11:15 AM",
+        "name": "Beginner",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-09-21": []
   }
 }
