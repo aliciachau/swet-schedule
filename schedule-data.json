@@ -1,31 +1,8 @@
 {
-  "generatedAt": "2026-09-19T01:38:58.976Z",
+  "generatedAt": "2026-09-19T06:41:00.271Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-09-18": [
-      {
-        "time": "7:30 AM",
-        "name": "Yoga",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "5:30 PM",
-        "name": "Conditioning",
-        "instructor": "Jobelle",
-        "level": "All Level",
-        "signature": true
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Restore + Meditate",
-        "instructor": "Phlips",
-        "level": "All Level",
-        "signature": false
-      }
-    ],
     "2026-09-19": [
       {
         "time": "9:00 AM",
@@ -153,8 +130,31 @@
         "instructor": "Bonnie",
         "level": "Intermediate",
         "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Yoga",
+        "instructor": "Ally",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "7:30 PM",
+        "name": "Flexibility",
+        "instructor": "Yusra",
+        "level": "Intermediate",
+        "signature": false
       }
     ],
-    "2026-09-24": []
+    "2026-09-24": [
+      {
+        "time": "8:00 AM",
+        "name": "Stretch",
+        "instructor": "Bonnie",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-09-25": []
   }
 }
