@@ -1,31 +1,8 @@
 {
-  "generatedAt": "2026-09-24T00:54:23.922Z",
+  "generatedAt": "2026-09-24T06:12:22.257Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-09-23": [
-      {
-        "time": "5:30 PM",
-        "name": "Pilates",
-        "instructor": "Bonnie",
-        "level": "Intermediate",
-        "signature": false
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Yoga",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "7:30 PM",
-        "name": "Flexibility",
-        "instructor": "Yusra",
-        "level": "Intermediate",
-        "signature": false
-      }
-    ],
     "2026-09-24": [
       {
         "time": "8:00 AM",
@@ -153,8 +130,30 @@
         "instructor": "Bonnie",
         "level": "All Level",
         "signature": false
+      },
+      {
+        "time": "12:00 PM",
+        "name": "Pilates",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "5:30 PM",
+        "name": "Beginner",
+        "instructor": "Jennet",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Fly",
+        "instructor": "Nai",
+        "level": "All Level",
+        "signature": true
       }
     ],
-    "2026-09-29": []
+    "2026-09-29": [],
+    "2026-09-30": []
   }
 }
