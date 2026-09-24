@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T11:51:54.849Z",
+  "generatedAt": "2026-09-24T17:15:17.154Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
@@ -97,7 +97,7 @@
       {
         "time": "11:15 AM",
         "name": "Beginner",
-        "instructor": "Alicia",
+        "instructor": "Ally",
         "level": "All Level",
         "signature": false
       },
