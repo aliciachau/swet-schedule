@@ -1,31 +1,8 @@
 {
-  "generatedAt": "2026-10-02T01:05:35.056Z",
+  "generatedAt": "2026-10-02T07:02:29.055Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-10-01": [
-      {
-        "time": "8:00 AM",
-        "name": "Stretch",
-        "instructor": "Bonnie",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "4:30 PM",
-        "name": "Beginner",
-        "instructor": "Bonnie",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "5:30 PM",
-        "name": "Pilates",
-        "instructor": "Bonnie",
-        "level": "Intermediate",
-        "signature": false
-      }
-    ],
     "2026-10-02": [
       {
         "time": "7:30 AM",
@@ -151,9 +128,32 @@
         "instructor": "Bonnie",
         "level": "Intermediate",
         "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Fly",
+        "instructor": "Nai",
+        "level": "All Level",
+        "signature": true
       }
     ],
-    "2026-10-06": [],
-    "2026-10-07": []
+    "2026-10-06": [
+      {
+        "time": "5:30 PM",
+        "name": "Beginner",
+        "instructor": "Bonnie",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Poses",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
+        "signature": false
+      }
+    ],
+    "2026-10-07": [],
+    "2026-10-08": []
   }
 }
