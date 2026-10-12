@@ -1,45 +1,8 @@
 {
-  "generatedAt": "2026-10-12T02:26:58.649Z",
+  "generatedAt": "2026-10-12T09:48:19.423Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-10-11": [
-      {
-        "time": "9:00 AM",
-        "name": "Yoga",
-        "instructor": "Alicia",
-        "level": "Intermediate",
-        "signature": false
-      },
-      {
-        "time": "10:00 AM",
-        "name": "Flexibility",
-        "instructor": "Ally",
-        "level": "Intermediate",
-        "signature": false
-      },
-      {
-        "time": "11:15 AM",
-        "name": "Beginner",
-        "instructor": "Alicia",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "4:00 PM",
-        "name": "Beginner",
-        "instructor": "Jennet",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "5:00 PM",
-        "name": "Stretch",
-        "instructor": "Jennet",
-        "level": "All Level",
-        "signature": false
-      }
-    ],
     "2026-10-12": [
       {
         "time": "7:30 AM",
@@ -155,6 +118,43 @@
         "signature": false
       }
     ],
-    "2026-10-17": []
+    "2026-10-17": [
+      {
+        "time": "9:00 AM",
+        "name": "Gentle Stretch",
+        "instructor": "Bonnie",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "10:00 AM",
+        "name": "Barre",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "11:00 AM",
+        "name": "Beginner",
+        "instructor": "Alicia",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "1:00 PM",
+        "name": "Dance",
+        "instructor": "Ally",
+        "level": "Intermediate",
+        "signature": true
+      },
+      {
+        "time": "4:00 PM",
+        "name": "Beginner",
+        "instructor": "Alicia",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-10-18": []
   }
 }
