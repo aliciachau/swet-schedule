@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T21:52:04.604Z",
+  "generatedAt": "2026-10-14T01:15:18.694Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
@@ -106,7 +106,7 @@
       {
         "time": "10:00 AM",
         "name": "Barre",
-        "instructor": "Ally",
+        "instructor": "Alicia",
         "level": "All Level",
         "signature": false
       },
@@ -116,13 +116,6 @@
         "instructor": "Alicia",
         "level": "All Level",
         "signature": false
-      },
-      {
-        "time": "1:00 PM",
-        "name": "Dance",
-        "instructor": "Ally",
-        "level": "Intermediate",
-        "signature": true
       },
       {
         "time": "4:00 PM",
@@ -153,6 +146,13 @@
         "instructor": "Alicia",
         "level": "All Level",
         "signature": false
+      },
+      {
+        "time": "3:00 PM",
+        "name": "Fly Foundations",
+        "instructor": "Simone",
+        "level": "Intermediate",
+        "signature": true
       }
     ],
     "2026-10-19": []
