@@ -339,12 +339,10 @@
 
   <div class="editor">
     <h2>SWET Schedule Editor</h2>
-    <p class="sub">Live from Recess for the selected date. Edit anything before downloading.</p>
-
-    <div id="liveStatus" style="margin:0 0 16px;padding:11px 13px;border-radius:8px;background:#eef5df;color:#43520b;font-size:13px;line-height:1.35;">Loading live Recess schedule…</div>
+    <p class="sub">Pick a day to load its usual lineup, then just fix whatever changed today.</p>
 
     <div class="field" style="margin-bottom:16px;">
-        <label>Fallback Day Preset</label>
+      <label>Load Day Preset</label>
       <select id="presetSelect">
         <option value="">— Select a day —</option>
         <option value="sunday">Sunday</option>
@@ -360,7 +358,7 @@
     <div class="field-row">
       <div class="field">
         <label>Day</label>
-        <input type="text" id="dayInput">
+        <input type="text" id="dayInput" value="Thursday">
       </div>
       <div class="field">
         <label>Date</label>
@@ -430,13 +428,15 @@
 </script>
 <script>
   const PRESETS = {
+    // NOTE: starting second half of September 2026, Ally will teach Sunday morning
+    // classes and Jennet will teach Sunday afternoon classes. Update instructors below then.
     sunday: [
       { time: '9:00 AM', name: 'Yoga', instructor: 'Alicia', level: 'Intermediate' },
       { time: '10:00 AM', name: 'Flexibility', instructor: 'Yusra', level: 'Intermediate' },
       { time: '11:15 AM', name: 'Beginner', instructor: 'Alicia', level: 'All Level' },
-      { time: '1:00 PM', name: 'Private', instructor: 'Alicia', level: 'Private' },
-      { time: '4:00 PM', name: 'Beginner', instructor: 'Jennet', level: 'All Level' },
-      { time: '5:00 PM', name: 'Stretch', instructor: 'Jennet', level: 'All Level' }
+      { time: '3:00 PM', name: 'Fly Foundations', instructor: 'Simone', level: 'Intermediate' },
+      { time: '4:00 PM', name: 'Beginner', instructor: 'Alicia', level: 'All Level' },
+      { time: '5:00 PM', name: 'Stretch', instructor: 'Alicia', level: 'All Level' }
     ],
     monday: [
       { time: '8:00 AM', name: 'Stretch', instructor: 'Bonnie', level: 'All Level' },
@@ -470,76 +470,37 @@
       { time: '11:00 AM', name: 'Beginner', instructor: 'Alicia', level: 'All Level' },
       { time: '12:00 PM', name: 'Private', instructor: 'Alicia', level: 'Private' },
       { time: '1:00 PM', name: 'Dance', instructor: 'Ally', level: 'Intermediate', signature: true },
-      { time: '2:00 PM', name: 'Open Practice', instructor: 'Swet Team', level: 'All Level' },
       { time: '4:00 PM', name: 'Beginner', instructor: 'Alicia', level: 'All Level' }
     ]
   };
 
-  let classes = [];
-  let liveSchedule = {};
+  let classes = JSON.parse(JSON.stringify(PRESETS.thursday));
 
   document.getElementById('presetSelect').addEventListener('change', e => {
     const day = e.target.value;
     if (!day || !PRESETS[day]) return;
     classes = JSON.parse(JSON.stringify(PRESETS[day]));
     document.getElementById('dayInput').value = day.charAt(0).toUpperCase() + day.slice(1);
+    document.getElementById('dateInput').value = nextDateForWeekday(day);
     renderEditor();
     renderPreview();
   });
 
-  function setStatus(message, kind = 'success') {
-    const status = document.getElementById('liveStatus');
-    status.textContent = message;
-    status.style.background = kind === 'error' ? '#fff0ec' : kind === 'loading' ? '#f2f2f2' : '#eef5df';
-    status.style.color = kind === 'error' ? '#8a2f1f' : kind === 'loading' ? '#555' : '#43520b';
-  }
-
-  function getLocalIsoDate(date = new Date()) {
-    const formatter = new Intl.DateTimeFormat('en-CA', {
-      timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit'
-    });
-    return formatter.format(date);
-  }
-
-  function updateDayFromDate(isoDate) {
-    if (!isoDate) return;
-    const dayName = new Intl.DateTimeFormat('en-US', {
-      weekday: 'long', timeZone: 'UTC'
-    }).format(new Date(`${isoDate}T12:00:00Z`));
-    document.getElementById('dayInput').value = dayName;
-  }
-
-  function loadSelectedDate() {
-    const date = document.getElementById('dateInput').value;
-    updateDayFromDate(date);
-    if (Object.prototype.hasOwnProperty.call(liveSchedule, date)) {
-      classes = JSON.parse(JSON.stringify(liveSchedule[date]));
-      setStatus(classes.length
-        ? `Live Recess schedule loaded: ${classes.length} class${classes.length === 1 ? '' : 'es'}.`
-        : 'Recess shows no classes for this date.');
-    } else {
-      const day = document.getElementById('dayInput').value.toLowerCase();
-      classes = JSON.parse(JSON.stringify(PRESETS[day] || []));
-      setStatus('Live data is not available for this date yet. Showing the editable fallback preset.', 'error');
-    }
-    document.getElementById('presetSelect').value = '';
-    renderEditor();
-    renderPreview();
-  }
-
-  async function loadLiveSchedule() {
-    setStatus('Loading live Recess schedule…', 'loading');
-    try {
-      const response = await fetch(`schedule-data.json?ts=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Schedule data returned ${response.status}`);
-      const data = await response.json();
-      liveSchedule = data.schedule || {};
-      loadSelectedDate();
-    } catch (error) {
-      console.warn('Live schedule unavailable:', error);
-      liveSchedule = {};
-      loadSelectedDate();
-    }
+  // Given a weekday name, find the next occurrence on/after today (today counts if it matches).
+  function nextDateForWeekday(dayName) {
+    const names = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+    const targetIdx = names.indexOf(dayName.toLowerCase());
+    if (targetIdx === -1) return document.getElementById('dateInput').value;
+    const now = new Date();
+    const todayIdx = now.getDay();
+    let diff = targetIdx - todayIdx;
+    if (diff < 0) diff += 7;
+    const result = new Date(now);
+    result.setDate(now.getDate() + diff);
+    const yyyy = result.getFullYear();
+    const mm = String(result.getMonth() + 1).padStart(2, '0');
+    const dd = String(result.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
   }
 
   function renderEditor() {
@@ -661,7 +622,7 @@
   }
 
   document.getElementById('dayInput').addEventListener('input', renderPreview);
-  document.getElementById('dateInput').addEventListener('change', loadSelectedDate);
+  document.getElementById('dateInput').addEventListener('input', renderPreview);
   document.getElementById('addClassBtn').addEventListener('click', () => {
     classes.push({ time: '', name: '', instructor: '', level: 'All Level' });
     renderEditor();
@@ -747,14 +708,20 @@
     return `${month}.${day}.${year}`;
   }
 
-  // Default to today's date in Boston, regardless of the viewer's current timezone.
+  // Default the date picker to today's actual date — never frozen on an old value
   (function setDefaultDate() {
     const input = document.getElementById('dateInput');
-    if (!input.value) input.value = getLocalIsoDate();
-    updateDayFromDate(input.value);
+    if (!input.value) {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      input.value = `${yyyy}-${mm}-${dd}`;
+    }
   })();
 
-  loadLiveSchedule();
+  renderEditor();
+  renderPreview();
 
   // Re-run auto-fit once real fonts finish loading — the first pass can
   // measure against fallback-font metrics before Anton/JetBrains Mono apply,
