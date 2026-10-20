@@ -505,6 +505,48 @@
 
   loadScheduleData();
 
+  // ---- Keep the page live: re-pull Recess data when the app is reopened,
+  // every 5 minutes, and on demand. Never overwrites edits you've made
+  // unless you tap "Refresh from Recess".
+  let dirty = false;
+  ['input', 'change', 'click'].forEach(evt =>
+    document.getElementById('classList').addEventListener(evt, () => { dirty = true; }));
+  document.getElementById('addClassBtn').addEventListener('click', () => { dirty = true; });
+
+  async function refreshSchedule(force) {
+    const statusEl = document.getElementById('syncStatus');
+    try {
+      const res = await fetch(`schedule-data.json?_=${Date.now()}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      SCHEDULE_DATA = data;
+      const select = document.getElementById('presetSelect');
+      const current = select.value;
+      const dates = populateDateDropdown(data);
+      const today = todayISO();
+      let target = data.schedule[current] ? current : (data.schedule[today] ? today : (dates.find(d => d >= today) || dates[0]));
+      // If the open day has passed, move to today (unless mid-edit)
+      if (current && current < today && !dirty) target = data.schedule[today] ? today : target;
+      select.value = target;
+      if (force || !dirty) { loadDateIntoEditor(target); dirty = false; }
+      const synced = new Date(data.generatedAt);
+      statusEl.textContent = `Live from Recess — checked ${new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}, data synced ${synced.toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} ET`;
+    } catch (err) {
+      console.error('Refresh failed:', err);
+      statusEl.textContent = 'Could not refresh from Recess — showing last loaded schedule.';
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshSchedule(false); });
+  window.addEventListener('pageshow', () => refreshSchedule(false));
+  setInterval(() => refreshSchedule(false), 5 * 60 * 1000);
+
+  const refreshBtn = document.createElement('button');
+  refreshBtn.className = 'add-btn';
+  refreshBtn.textContent = '↻ Refresh from Recess';
+  refreshBtn.addEventListener('click', () => refreshSchedule(true));
+  document.getElementById('addClassBtn').insertAdjacentElement('beforebegin', refreshBtn);
+
   function renderEditor() {
     const listEl = document.getElementById('classList');
     listEl.innerHTML = '';
