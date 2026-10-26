@@ -1,45 +1,8 @@
 {
-  "generatedAt": "2026-10-26T01:47:06.902Z",
+  "generatedAt": "2026-10-26T07:05:54.158Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-10-25": [
-      {
-        "time": "9:00 AM",
-        "name": "Yoga",
-        "instructor": "Alicia",
-        "level": "Intermediate",
-        "signature": false
-      },
-      {
-        "time": "10:00 AM",
-        "name": "Flexibility",
-        "instructor": "Ally",
-        "level": "Intermediate",
-        "signature": false
-      },
-      {
-        "time": "11:15 AM",
-        "name": "Beginner",
-        "instructor": "Alicia",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "3:00 PM",
-        "name": "Halloween Edition: Fly Foundations (Come In Costume)",
-        "instructor": "Simone",
-        "level": "Intermediate",
-        "signature": true
-      },
-      {
-        "time": "4:00 PM",
-        "name": "Beginner",
-        "instructor": "Alicia",
-        "level": "All Level",
-        "signature": false
-      }
-    ],
     "2026-10-26": [
       {
         "time": "8:00 AM",
@@ -52,7 +15,7 @@
         "time": "6:30 PM",
         "name": "Fly",
         "instructor": "Nai",
-        "level": "All Level",
+        "level": "Advanced",
         "signature": true
       },
       {
@@ -154,6 +117,43 @@
         "name": "Gentle Stretch",
         "instructor": "Bonnie",
         "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "10:00 AM",
+        "name": "Barre",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "11:00 AM",
+        "name": "Beginner",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "1:00 PM",
+        "name": "Halloween Edition: Aerial Dance",
+        "instructor": "Ally",
+        "level": "Intermediate",
+        "signature": true
+      }
+    ],
+    "2026-11-01": [
+      {
+        "time": "9:00 AM",
+        "name": "Yoga",
+        "instructor": "Alicia",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "10:00 AM",
+        "name": "Flexibility",
+        "instructor": "Ally",
+        "level": "Intermediate",
         "signature": false
       }
     ]
