@@ -803,7 +803,7 @@
       slot.innerHTML = `
         <div class="slot-left">
           <span class="slot-time">${c.time}</span>
-          <span class="slot-class">${isPrivate ? '' : '<span class="aerial-tag">aerial </span>'}${c.name}</span>
+          <span class="slot-class">${(isPrivate || /aerial/i.test(c.name) || /^\s*halloween/i.test(c.name)) ? '' : '<span class="aerial-tag">aerial </span>'}${c.name}</span>
           <span class="slot-instructor">with ${c.instructor}</span>
         </div>
         <span class="status-tag ${isAction ? 'action' : ''}${isPrivate ? 'private' : ''}">${isPrivate ? 'Booked' : c.level}</span>
