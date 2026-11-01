@@ -1,38 +1,8 @@
 {
-  "generatedAt": "2026-11-01T02:16:13.653Z",
+  "generatedAt": "2026-11-01T09:23:57.229Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-10-31": [
-      {
-        "time": "9:00 AM",
-        "name": "Gentle Stretch",
-        "instructor": "Bonnie",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "10:00 AM",
-        "name": "Barre",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "11:00 AM",
-        "name": "Beginner",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "1:00 PM",
-        "name": "Halloween Edition: Aerial Dance",
-        "instructor": "Ally",
-        "level": "Intermediate",
-        "signature": true
-      }
-    ],
     "2026-11-01": [
       {
         "time": "9:00 AM",
@@ -153,8 +123,39 @@
         "instructor": "Caitlin",
         "level": "Intermediate",
         "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Conditioning",
+        "instructor": "Jobelle",
+        "level": "Advanced",
+        "signature": true
       }
     ],
-    "2026-11-06": []
+    "2026-11-06": [
+      {
+        "time": "7:30 AM",
+        "name": "Yoga",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Restore + Meditate",
+        "instructor": "Phlips",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-11-07": [
+      {
+        "time": "9:00 AM",
+        "name": "Gentle Stretch",
+        "instructor": "Bonnie",
+        "level": "All Level",
+        "signature": false
+      }
+    ]
   }
 }
