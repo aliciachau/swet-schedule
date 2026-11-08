@@ -1,45 +1,8 @@
 {
-  "generatedAt": "2026-11-07T23:59:48.551Z",
+  "generatedAt": "2026-11-08T06:08:16.020Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-11-07": [
-      {
-        "time": "9:00 AM",
-        "name": "Gentle Stretch",
-        "instructor": "Bonnie",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "10:00 AM",
-        "name": "Barre",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "11:00 AM",
-        "name": "Beginner",
-        "instructor": "Alicia",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "1:00 PM",
-        "name": "Dance",
-        "instructor": "Ally",
-        "level": "Intermediate",
-        "signature": true
-      },
-      {
-        "time": "3:00 PM",
-        "name": "Beginner",
-        "instructor": "Alicia",
-        "level": "All Level",
-        "signature": false
-      }
-    ],
     "2026-11-08": [
       {
         "time": "9:00 AM",
@@ -87,9 +50,9 @@
     "2026-11-09": [
       {
         "time": "8:00 AM",
-        "name": "Pilates",
-        "instructor": "Alicia",
-        "level": "Intermediate",
+        "name": "Community Class",
+        "instructor": "SWET",
+        "level": "All Level",
         "signature": false
       },
       {
@@ -152,6 +115,43 @@
       {
         "time": "7:30 AM",
         "name": "Yoga",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "5:30 PM",
+        "name": "Conditioning",
+        "instructor": "Jobelle",
+        "level": "Advanced",
+        "signature": true
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Restore + Meditate",
+        "instructor": "Phlips",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-11-14": [
+      {
+        "time": "9:00 AM",
+        "name": "Gentle Stretch",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "10:00 AM",
+        "name": "Barre",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "11:00 AM",
+        "name": "Beginner",
         "instructor": "Ally",
         "level": "All Level",
         "signature": false
