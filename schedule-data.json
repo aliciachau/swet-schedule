@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T06:08:16.020Z",
+  "generatedAt": "2026-11-08T13:30:05.179Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
@@ -51,7 +51,7 @@
       {
         "time": "8:00 AM",
         "name": "Community Class",
-        "instructor": "SWET",
+        "instructor": "Khadija",
         "level": "All Level",
         "signature": false
       },
