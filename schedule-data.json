@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T19:47:15.342Z",
+  "generatedAt": "2026-11-11T00:40:45.761Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
@@ -23,7 +23,14 @@
       {
         "time": "5:30 PM",
         "name": "Beginner",
-        "instructor": "SWET",
+        "instructor": "Khadija",
+        "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Restore + Meditate",
+        "instructor": "Sara",
         "level": "All Level",
         "signature": false
       }
@@ -93,13 +100,6 @@
         "time": "2:00 PM",
         "name": "Beginner",
         "instructor": "Alicia",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "4:00 PM",
-        "name": "Community Class",
-        "instructor": "Khadija",
         "level": "All Level",
         "signature": false
       },
