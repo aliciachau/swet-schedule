@@ -1,24 +1,8 @@
 {
-  "generatedAt": "2026-11-12T03:24:02.334Z",
+  "generatedAt": "2026-11-12T11:53:37.318Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-11-11": [
-      {
-        "time": "5:30 PM",
-        "name": "Beginner",
-        "instructor": "Khadija",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Restore + Meditate",
-        "instructor": "Sara",
-        "level": "All Level",
-        "signature": false
-      }
-    ],
     "2026-11-12": [
       {
         "time": "4:30 PM",
@@ -153,8 +137,24 @@
         "instructor": "Nai",
         "level": "Advanced",
         "signature": true
+      },
+      {
+        "time": "7:30 PM",
+        "name": "Restore + Meditate",
+        "instructor": "Sara",
+        "level": "All Level",
+        "signature": false
       }
     ],
-    "2026-11-17": []
+    "2026-11-17": [
+      {
+        "time": "5:30 PM",
+        "name": "Beginner",
+        "instructor": "Khadija",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-11-18": []
   }
 }
