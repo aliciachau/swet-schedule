@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T22:13:13.073Z",
+  "generatedAt": "2026-11-14T02:28:38.309Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
@@ -54,13 +54,6 @@
         "instructor": "Ally",
         "level": "Intermediate",
         "signature": true
-      },
-      {
-        "time": "5:00 PM",
-        "name": "Beginner",
-        "instructor": "Alicia",
-        "level": "All Level",
-        "signature": false
       }
     ],
     "2026-11-15": [
@@ -152,6 +145,13 @@
         "name": "Pilates",
         "instructor": "Ally",
         "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Yoga",
+        "instructor": "Ally",
+        "level": "All Level",
         "signature": false
       }
     ],
