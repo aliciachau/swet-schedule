@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-17T09:15:28.309Z",
+  "generatedAt": "2026-11-17T18:38:51.774Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
@@ -122,7 +122,7 @@
       {
         "time": "9:00 AM",
         "name": "Yoga",
-        "instructor": "Alicia",
+        "instructor": "alicia",
         "level": "All Level",
         "signature": false
       },
@@ -136,7 +136,7 @@
       {
         "time": "11:15 AM",
         "name": "Beginner",
-        "instructor": "Alicia",
+        "instructor": "alicia",
         "level": "All Level",
         "signature": false
       },
@@ -150,7 +150,7 @@
       {
         "time": "4:00 PM",
         "name": "Beginner",
-        "instructor": "Alicia",
+        "instructor": "alicia",
         "level": "All Level",
         "signature": false
       }
