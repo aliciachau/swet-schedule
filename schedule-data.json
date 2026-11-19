@@ -1,43 +1,27 @@
 {
-  "generatedAt": "2026-11-19T00:26:06.578Z",
+  "generatedAt": "2026-11-19T07:58:25.293Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-11-18": [
-      {
-        "time": "5:30 PM",
-        "name": "Pilates",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Yoga",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      }
-    ],
     "2026-11-19": [
       {
         "time": "8:00 AM",
         "name": "Stretch",
-        "instructor": "Khadija",
+        "instructor": "KS Khadija",
         "level": "All Level",
         "signature": false
       },
       {
         "time": "4:30 PM",
         "name": "Beginner Yoga",
-        "instructor": "Caitlin",
+        "instructor": "CS Caitlin",
         "level": "All Level",
         "signature": false
       },
       {
         "time": "5:30 PM",
         "name": "Pilates",
-        "instructor": "Caitlin",
+        "instructor": "CS Caitlin",
         "level": "Intermediate",
         "signature": false
       },
@@ -53,7 +37,7 @@
       {
         "time": "7:30 AM",
         "name": "Yoga",
-        "instructor": "Ally",
+        "instructor": "AS Ally",
         "level": "All Level",
         "signature": false
       },
@@ -76,28 +60,28 @@
       {
         "time": "9:00 AM",
         "name": "Gentle Stretch",
-        "instructor": "Ally",
+        "instructor": "AS Ally",
         "level": "All Level",
         "signature": false
       },
       {
         "time": "10:00 AM",
         "name": "Barre",
-        "instructor": "Ally",
+        "instructor": "AS Ally",
         "level": "All Level",
         "signature": false
       },
       {
         "time": "11:00 AM",
         "name": "Beginner",
-        "instructor": "Ally",
+        "instructor": "AS Ally",
         "level": "All Level",
         "signature": false
       },
       {
         "time": "1:00 PM",
         "name": "Dance",
-        "instructor": "Ally",
+        "instructor": "AS Ally",
         "level": "Intermediate",
         "signature": true
       }
@@ -113,7 +97,7 @@
       {
         "time": "10:00 AM",
         "name": "Flexibility",
-        "instructor": "Ally",
+        "instructor": "AS Ally",
         "level": "Intermediate",
         "signature": false
       },
@@ -153,8 +137,24 @@
         "instructor": "Jobelle",
         "level": "Intermediate",
         "signature": false
+      },
+      {
+        "time": "7:30 PM",
+        "name": "Restore + Meditate",
+        "instructor": "Sara",
+        "level": "All Level",
+        "signature": false
       }
     ],
-    "2026-11-24": []
+    "2026-11-24": [
+      {
+        "time": "5:30 PM",
+        "name": "Beginner",
+        "instructor": "SWET",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-11-25": []
   }
 }
