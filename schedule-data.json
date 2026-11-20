@@ -1,38 +1,8 @@
 {
-  "generatedAt": "2026-11-19T23:53:37.072Z",
+  "generatedAt": "2026-11-20T07:22:13.493Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-11-19": [
-      {
-        "time": "8:00 AM",
-        "name": "Stretch",
-        "instructor": "Khadija",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "4:30 PM",
-        "name": "Beginner Yoga",
-        "instructor": "Caitlin",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "5:30 PM",
-        "name": "Pilates",
-        "instructor": "Caitlin",
-        "level": "Intermediate",
-        "signature": false
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Conditioning",
-        "instructor": "Jobelle",
-        "level": "Advanced",
-        "signature": true
-      }
-    ],
     "2026-11-20": [
       {
         "time": "7:30 AM",
@@ -90,7 +60,7 @@
       {
         "time": "9:00 AM",
         "name": "Yoga",
-        "instructor": "alicia",
+        "instructor": "Ally",
         "level": "All Level",
         "signature": false
       },
@@ -153,8 +123,40 @@
         "instructor": "SWET",
         "level": "All Level",
         "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Fly",
+        "instructor": "Nai",
+        "level": "Advanced",
+        "signature": true
       }
     ],
-    "2026-11-25": []
+    "2026-11-25": [
+      {
+        "time": "5:30 PM",
+        "name": "Pilates",
+        "instructor": "Ally",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Yoga",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-11-27": [
+      {
+        "time": "7:30 AM",
+        "name": "Yoga",
+        "instructor": "Ally",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-11-26": []
   }
 }
