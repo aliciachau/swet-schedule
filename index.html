@@ -223,7 +223,22 @@
     display: flex;
     flex-direction: column;
     gap: calc(14px * var(--card-scale, 1));
-    flex: 1;
+    flex: none;
+  }
+  .note-banner {
+    display: none;
+    margin-top: calc(18px * var(--card-scale, 1));
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 34px;
+    padding: calc(26px * var(--card-scale, 1)) calc(43px * var(--card-scale, 1));
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: calc(34px * var(--card-scale, 1));
+    line-height: 1.25;
+    color: var(--text);
+    text-align: center;
+    white-space: pre-line;
   }
 
   .slot {
@@ -338,6 +353,7 @@
 
   .bg-tint { position:absolute; inset:0; z-index:-1; pointer-events:none; }
   .deco { position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .wordmark-row, .eyebrow-row, .day, .schedule, .note-banner { position:relative; z-index:1; }
   .deco img { position:absolute; left:0; top:0; width:1080px; height:1920px; display:block; }
   .eyebrow.theme-label { opacity:0.95; }
 </style>
@@ -370,6 +386,27 @@
           <option value="witch">Witch on broom</option>
         </select>
       </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Greeting (optional)</label>
+        <input type="text" id="greetingInput" placeholder="auto">
+      </div>
+      <div class="field">
+        <label>Seasonal decor</label>
+        <select id="decorSelect">
+          <option value="full">Full</option>
+          <option value="subtle">Subtle</option>
+          <option value="off">Off</option>
+        </select>
+      </div>
+    </div>
+    <p class="sub" id="themeHint" style="font-size:12px;opacity:0.65;margin:-6px 0 14px;"></p>
+
+    <div class="field">
+      <label>Note / announcement (optional)</label>
+      <textarea id="noteInput" rows="2" placeholder="e.g. Studio closed Thursday. Happy Thanksgiving!" style="width:100%;padding:9px 10px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;background:#fafafa;resize:vertical;"></textarea>
     </div>
 
     <div class="field-row">
@@ -422,6 +459,7 @@
       <div class="day" id="dayOut">Thursday</div>
 
       <div class="schedule" id="scheduleOut"></div>
+      <div class="note-banner" id="noteOut"></div>
 
     </div>
   </div>
@@ -453,6 +491,16 @@
   // into schedule-data.json. This replaces the old hardcoded day presets.
   let SCHEDULE_DATA = null;
   let classes = [];
+
+  // Private sessions are hidden from Recess's public listing, so they come from privates.json
+  // (date -> list of {time, instructor?}). Shown on the graphic as "Private / Booked" - no client names.
+  let PRIVATES = {};
+  async function loadPrivates() {
+    try {
+      const r = await fetch(`privates.json?_=${Date.now()}`, { cache: 'no-store' });
+      if (r.ok) { const j = await r.json(); PRIVATES = j.privates || j; }
+    } catch (e) { /* no privates file yet - fine */ }
+  }
 
   // =====================================================================
   // THEMES — the design follows the calendar. "Auto" picks the theme for the
@@ -522,30 +570,174 @@
     `);
   }
 
+  // ---------- decor helpers ----------
+  function seeded(str) {            // deterministic RNG: same date -> same artwork, new date -> new arrangement
+    let h = 2166136261;
+    for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return function () {
+      h += 0x6D2B79F5; let t = Math.imul(h ^ (h >>> 15), 1 | h);
+      t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function scatter(rand, n, fn) {   // place n items mostly in the top/bottom bands and side margins (cards cover the middle)
+    let out = '';
+    for (let i = 0; i < n; i++) {
+      const r = rand();
+      let x = rand() * 1080, y;
+      if (r < 0.42) y = rand() * 380;
+      else if (r < 0.84) y = 1480 + rand() * 440;
+      else { y = 380 + rand() * 1100; x = rand() < 0.5 ? rand() * 70 : 1010 + rand() * 70; }
+      out += fn(x, y, rand, i);
+    }
+    return out;
+  }
+  function leafSVG(x, y, s, rot, color, op, kind) {
+    const body = kind
+      ? `<path d="M0 -50 L10 -28 L30 -34 L22 -14 L44 -8 L26 6 L34 26 L10 20 L6 46 L0 56 L-6 46 L-10 20 L-34 26 L-26 6 L-44 -8 L-22 -14 L-30 -34 L-10 -28Z" fill="${color}"/><path d="M0 -40 L0 62" stroke="rgba(0,0,0,.32)" stroke-width="3" fill="none"/>`
+      : `<path d="M0 -42 C26 -32 32 0 0 46 C-32 0 -26 -32 0 -42Z" fill="${color}"/><path d="M0 -34 L0 56 M0 -6 L14 -18 M0 -6 L-14 -18 M0 14 L12 4 M0 14 L-12 4" stroke="rgba(0,0,0,.3)" stroke-width="2.5" fill="none"/>`;
+    return `<g transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) rotate(${rot.toFixed(0)}) scale(${s.toFixed(2)})" opacity="${op.toFixed(2)}">${body}</g>`;
+  }
+  function plainPumpkinSVG(x, y, s, base) {
+    return `<g transform="translate(${x} ${y}) scale(${s})">
+      <ellipse cx="0" cy="0" rx="92" ry="72" fill="${base}"/>
+      <ellipse cx="-48" cy="0" rx="44" ry="72" fill="#E98A2A"/>
+      <ellipse cx="48" cy="0" rx="44" ry="72" fill="#E98A2A"/>
+      <ellipse cx="0" cy="0" rx="40" ry="72" fill="#F3A04A"/>
+      <path d="M-6 -70 C-8 -92 4 -100 16 -104 L22 -94 C12 -92 10 -82 12 -70Z" fill="#5B6B2A"/>
+    </g>`;
+  }
+  function sparkleSVG(x, y, s, color, op) {
+    return `<path transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) scale(${s.toFixed(2)})" d="M0 -20 L5 -5 L20 0 L5 5 L0 20 L-5 5 L-20 0 L-5 -5Z" fill="${color}" opacity="${op.toFixed(2)}"/>`;
+  }
+  function heartSVG(x, y, s, rot, color, op) {
+    return `<path transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) rotate(${rot.toFixed(0)}) scale(${s.toFixed(2)})" d="M0 14 C-30 -8 -26 -34 -9 -34 C-2 -34 0 -27 0 -25 C0 -27 2 -34 9 -34 C26 -34 30 -8 0 14Z" fill="${color}" opacity="${op.toFixed(2)}"/>`;
+  }
+  function boughSVG(x, y, rot, s, flip) {
+    let g = '<path d="M0 0 C100 -24 200 -26 310 -4" stroke="#4A2E17" stroke-width="7" fill="none" stroke-linecap="round"/>';
+    const cols = ['#1E6B47', '#2A8A5B', '#145236'];
+    const n = 18;
+    for (let i = 0; i < n; i++) {
+      const t = i / (n - 1), px = t * 310, py = -22 * Math.sin(t * 2.4) - 2;
+      const len = 96 * (1 - t * 0.55);
+      [-1, 1].forEach((side, k) => {
+        const a = side * (52 - t * 14) * Math.PI / 180;
+        g += `<line x1="${px.toFixed(0)}" y1="${py.toFixed(0)}" x2="${(px + len * Math.cos(a)).toFixed(0)}" y2="${(py + len * Math.sin(a)).toFixed(0)}" stroke="${cols[(i + k) % 3]}" stroke-width="8" stroke-linecap="round"/>`;
+      });
+    }
+    g += '<circle cx="70" cy="-20" r="9" fill="#E24B4B"/><circle cx="88" cy="-12" r="9" fill="#C93A3A"/><circle cx="60" cy="-5" r="9" fill="#E24B4B"/>';
+    return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${flip * s} ${s})">${g}</g>`;
+  }
+  function lightsSVG(rand) {
+    const cols = ['#FF5B5B', '#FFD36B', '#5CE08A', '#6BB8FF', '#FFF1D0'];
+    let wire = '', bulbs = '', k = Math.floor(rand() * 5);
+    const segs = 6, w = 1080 / segs;
+    for (let i = 0; i < segs; i++) {
+      const x0 = i * w, x1 = x0 + w, y0 = -22, cx = x0 + w / 2, cy = 46;
+      wire += `<path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y0}" stroke="#4C6B58" stroke-width="3" fill="none"/>`;
+      [0.25, 0.75].forEach(t => {
+        const bx = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * cx + t * t * x1;
+        const by = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * cy + t * t * y0;
+        const c = cols[k++ % 5];
+        bulbs += `<circle cx="${bx.toFixed(0)}" cy="${(by + 22).toFixed(0)}" r="24" fill="${c}" opacity="0.28"/><rect x="${(bx - 5).toFixed(0)}" y="${by.toFixed(0)}" width="10" height="12" rx="2" fill="#4C6B58"/><ellipse cx="${bx.toFixed(0)}" cy="${(by + 24).toFixed(0)}" rx="9" ry="13" fill="${c}"/>`;
+      });
+    }
+    return wire + bulbs;
+  }
+  function svgURI(inner) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">${inner}</svg>`;
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+
+  function harvestDeco(iso, dense) {
+    const rand = seeded('harvest-' + iso);
+    const cols = ['#E8892B', '#C4561C', '#F0A64E', '#9B3A14', '#D6A72E'];
+    const leaves = scatter(rand, dense ? 30 : 16, (x, y, r) => leafSVG(x, y, 0.45 + r() * 0.75, r() * 360, cols[Math.floor(r() * cols.length)], 0.55 + r() * 0.4, r() < 0.55 ? 1 : 0));
+    const pumpkins = dense ? `${plainPumpkinSVG(160, 1880, 0.95, '#D9741C')}${plainPumpkinSVG(900, 1890, 1.25, '#CF6A16')}${plainPumpkinSVG(520, 1915, 0.65, '#D9741C')}` : '';
+    return svgURI(`
+      <defs>
+        <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0.5" stop-color="#FFC266" stop-opacity="0.26"/><stop offset="1" stop-color="#FFC266" stop-opacity="0"/></radialGradient>
+        <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B8501A" stop-opacity="0"/><stop offset="1" stop-color="#B8501A" stop-opacity="0.42"/></linearGradient>
+      </defs>
+      <circle cx="880" cy="290" r="270" fill="url(#sun)"/>
+      <rect x="0" y="1560" width="1080" height="360" fill="url(#ground)"/>
+      ${leaves}${pumpkins}`);
+  }
+  function holidayDeco(iso) {
+    const rand = seeded('holiday-' + iso);
+    const snow = scatter(rand, 70, (x, y, r) => `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(1.5 + r() * 4).toFixed(1)}" fill="#FFFFFF" opacity="${(0.35 + r() * 0.55).toFixed(2)}"/>`);
+    const stars = scatter(rand, 7, (x, y, r) => y < 400 || y > 1480 ? sparkleSVG(x, y, 0.5 + r() * 0.8, '#FFE9A8', 0.6 + r() * 0.35) : '');
+    return svgURI(`
+      <defs>
+        <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E24B4B" stop-opacity="0"/><stop offset="1" stop-color="#E24B4B" stop-opacity="0.22"/></linearGradient>
+      </defs>
+      <rect x="0" y="1560" width="1080" height="360" fill="url(#glow)"/>
+      ${snow}${stars}
+      ${boughSVG(-20, 1900, -28, 1.25, 1)}
+      ${boughSVG(1100, 1900, -28, 1.25, -1)}
+      ${lightsSVG(rand)}`);
+  }
+  function newYearDeco(iso) {
+    const rand = seeded('ny-' + iso);
+    const gold = ['#E7C76A', '#F5E3A1', '#C9A227', '#FFFFFF'];
+    const conf = scatter(rand, 46, (x, y, r) => `<rect x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${(8 + r() * 10).toFixed(0)}" height="${(16 + r() * 18).toFixed(0)}" rx="2" fill="${gold[Math.floor(r() * 4)]}" opacity="${(0.45 + r() * 0.5).toFixed(2)}" transform="rotate(${(r() * 360).toFixed(0)} ${x.toFixed(0)} ${y.toFixed(0)})"/>`);
+    const stars = scatter(rand, 10, (x, y, r) => sparkleSVG(x, y, 0.6 + r() * 1.1, '#F5E3A1', 0.6 + r() * 0.35));
+    return svgURI(`
+      <defs><radialGradient id="bk" cx="0.5" cy="0.5" r="0.5"><stop offset="0.4" stop-color="#E7C76A" stop-opacity="0.25"/><stop offset="1" stop-color="#E7C76A" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="200" cy="220" r="220" fill="url(#bk)"/><circle cx="900" cy="1700" r="260" fill="url(#bk)"/>
+      ${conf}${stars}`);
+  }
+  function valentinesDeco(iso) {
+    const rand = seeded('val-' + iso);
+    const cols = ['#FF5C8A', '#FF8FB1', '#E0335F', '#FFC2D4'];
+    const hearts = scatter(rand, 24, (x, y, r) => heartSVG(x, y, 0.5 + r() * 0.9, (r() - 0.5) * 50, cols[Math.floor(r() * 4)], 0.45 + r() * 0.45));
+    return svgURI(`${hearts}`);
+  }
+
   const THEMES = {
-    classic: { name: 'Classic SWET', label: '', bg:'#0A0A0C', text:'#F5F3EE', accent:'#C98FB3', accent2:'#C98FB3', card:'#201F23', action:'#C3D62E', ink:'#17130A', fade:'10,10,12', tint:'none' },
-    halloween: { name: 'Halloween', label: 'Happy Halloween', bg:'#0B0612', text:'#FBF3E8', accent:'#FF8A2B', accent2:'#B995FF', card:'#1B1026', action:'#FF7A1A', ink:'#1A0A00', fade:'14,5,24',
+    classic: { name: 'Classic SWET', bg:'#0A0A0C', text:'#F5F3EE', accent:'#C98FB3', accent2:'#C98FB3', card:'#201F23', action:'#C3D62E', ink:'#17130A', fade:'10,10,12', tint:'none' },
+    halloween: { name: 'Halloween', bg:'#0B0612', text:'#FBF3E8', accent:'#FF8A2B', accent2:'#B995FF', card:'#1B1026', action:'#FF7A1A', ink:'#1A0A00', fade:'14,5,24',
       tint:'linear-gradient(180deg, rgba(110,40,160,0.42) 0%, rgba(70,20,110,0.30) 55%, rgba(255,110,0,0.18) 100%)', deco: halloweenDeco },
-    thanksgiving: { name: 'Thanksgiving', label: 'Happy Thanksgiving', bg:'#120A06', text:'#FBF1E4', accent:'#E8A04C', accent2:'#D98A5B', card:'#2A1A10', action:'#D9822B', ink:'#1A0D02', fade:'18,10,6', tint:'rgba(130,55,10,0.28)' },
-    holiday: { name: 'Winter Holidays', label: 'Happy Holidays', bg:'#07120E', text:'#F7F3EC', accent:'#E86B6B', accent2:'#8FD1A5', card:'#14231D', action:'#D6B04C', ink:'#1A1500', fade:'7,18,14', tint:'rgba(10,80,50,0.30)' },
-    newyear: { name: 'New Year', label: 'Happy New Year', bg:'#0A0A10', text:'#FAF6EA', accent:'#E7C76A', accent2:'#E7C76A', card:'#1B1B24', action:'#E7C76A', ink:'#1A1400', fade:'10,10,16', tint:'rgba(50,35,95,0.32)' },
-    valentines: { name: "Valentine's", label: "Happy Valentine's", bg:'#14060C', text:'#FFF1F3', accent:'#FF7A9C', accent2:'#FF9DB5', card:'#2A0F1B', action:'#FF5C8A', ink:'#2A0010', fade:'20,6,12', tint:'rgba(160,20,70,0.32)' }
+    autumn: { name: 'Autumn', bg:'#120B07', text:'#FBF1E4', accent:'#E8A04C', accent2:'#D49A78', card:'#26170F', action:'#D6A72E', ink:'#1C1400', fade:'18,10,6',
+      tint:'linear-gradient(180deg, rgba(140,70,20,0.34) 0%, rgba(90,40,12,0.26) 55%, rgba(200,120,30,0.16) 100%)', deco: iso => harvestDeco(iso, false) },
+    thanksgiving: { name: 'Thanksgiving season', bg:'#130A06', text:'#FBF1E4', accent:'#F0A64E', accent2:'#E58A5B', card:'#2B1710', action:'#E08A2E', ink:'#1A0D02', fade:'20,10,6',
+      tint:'linear-gradient(180deg, rgba(150,60,15,0.42) 0%, rgba(95,30,10,0.32) 55%, rgba(215,120,30,0.20) 100%)', deco: iso => harvestDeco(iso, true) },
+    holiday: { name: 'Holiday season', bg:'#07120E', text:'#F7F3EC', accent:'#FF8C7A', accent2:'#8FD1A5', card:'#12261D', action:'#D6B04C', ink:'#1A1500', fade:'7,18,14',
+      tint:'linear-gradient(180deg, rgba(10,80,50,0.40) 0%, rgba(10,60,40,0.30) 55%, rgba(150,20,30,0.20) 100%)', deco: holidayDeco },
+    newyear: { name: 'New Year', bg:'#0A0A10', text:'#FAF6EA', accent:'#E7C76A', accent2:'#E7C76A', card:'#1B1B24', action:'#E7C76A', ink:'#1A1400', fade:'10,10,16',
+      tint:'linear-gradient(180deg, rgba(60,40,110,0.40) 0%, rgba(30,25,70,0.30) 100%)', deco: newYearDeco },
+    valentines: { name: "Valentine's", bg:'#14060C', text:'#FFF1F3', accent:'#FF7A9C', accent2:'#FF9DB5', card:'#2A0F1B', action:'#FF5C8A', ink:'#2A0010', fade:'20,6,12',
+      tint:'linear-gradient(180deg, rgba(170,25,75,0.38) 0%, rgba(110,15,50,0.28) 100%)', deco: valentinesDeco }
   };
 
-  // Which holiday theme applies to a given date (YYYY-MM-DD)?
+  // Thanksgiving = 4th Thursday of November
+  function thanksgivingDay(y) {
+    const firstThu = 1 + ((4 - new Date(y, 10, 1).getDay() + 7) % 7);
+    return firstThu + 21;
+  }
+
+  // SEASONS: which look applies to a date (YYYY-MM-DD). Edit the dates here to change when a season starts/ends.
   function autoThemeFor(iso) {
     if (!iso) return 'classic';
     const [y, m, d] = iso.split('-').map(Number);
     const md = m * 100 + d;
+    const dtg = Math.round((Date.UTC(y, m - 1, d) - Date.UTC(y, 10, thanksgivingDay(y))) / 864e5); // days from Thanksgiving
     if (md >= 1018 && md <= 1101) return 'halloween';
-    // Thanksgiving = 4th Thursday of November; theme runs the week before through the day after
-    const firstThu = 1 + ((4 - new Date(y, 10, 1).getDay() + 7) % 7);
-    const tg = firstThu + 21;
-    if (m === 11 && d >= tg - 6 && d <= tg + 1) return 'thanksgiving';
-    if (md >= 1215 && md <= 1226) return 'holiday';
+    if (m === 11 && dtg >= -13 && dtg <= 4) return 'thanksgiving';   // ~2 weeks before through Cyber Monday
+    if (m === 11 && d >= 2) return 'autumn';                          // early November, before Thanksgiving season
+    if (md >= 1201 && md <= 1226) return 'holiday';                   // all of December: holiday season look
     if (md >= 1227 || md <= 103) return 'newyear';
     if (md >= 207 && md <= 214) return 'valentines';
     return 'classic';
+  }
+
+  // GREETINGS: only on the actual day (editable in the Greeting box; type "none" to hide)
+  function autoGreetingFor(iso) {
+    if (!iso) return '';
+    const [y, m, d] = iso.split('-').map(Number);
+    const md = m * 100 + d;
+    if (m === 11 && d === thanksgivingDay(y)) return 'Happy Thanksgiving';
+    return ({ 1031: 'Happy Halloween', 1224: 'Christmas Eve', 1225: 'Merry Christmas', 1231: "New Year's Eve", 101: 'Happy New Year', 214: "Happy Valentine's Day" })[md] || '';
   }
 
   const themeSelect = document.getElementById('themeSelect');
@@ -566,19 +758,37 @@
     set('--bg', t.bg); set('--text', t.text); set('--accent', t.accent); set('--accent2', t.accent2);
     set('--card', t.card); set('--action', t.action); set('--action-ink', t.ink); set('--fade', t.fade);
     document.getElementById('bgTint').style.background = t.tint;
-    document.getElementById('themeLabel').textContent = t.label;
+
+    // greeting: auto on holiday dates only, or whatever you type ("none" hides it)
+    const autoG = autoGreetingFor(iso);
+    const typed = document.getElementById('greetingInput').value.trim();
+    document.getElementById('greetingInput').placeholder = autoG || 'none today';
+    document.getElementById('themeLabel').textContent = typed.toLowerCase() === 'none' ? '' : (typed || autoG);
+
+    // decor
     const deco = document.getElementById('decoOut');
     deco.innerHTML = '';
-    if (t.deco) { const img = document.createElement('img'); img.src = t.deco(); img.width = 1080; img.height = 1920; deco.appendChild(img); }
+    const level = document.getElementById('decorSelect').value;
+    if (t.deco && level !== 'off') {
+      const img = document.createElement('img'); img.src = t.deco(iso); img.width = 1080; img.height = 1920;
+      if (level === 'subtle') img.style.opacity = '0.5';
+      deco.appendChild(img);
+    }
+
     const photo = document.querySelector('.bg-photo');
     const b = bgSelect.value;
     photo.style.backgroundImage = b === 'studio' ? studioBg : `url(data:image/jpeg;base64,${PHOTOS[b]})`;
     photo.style.opacity = b === 'studio' ? '' : '0.9';
+
     const hint = document.getElementById('themeHint');
-    if (hint) hint.textContent = choice === 'auto' ? `Auto → ${t.name}` : '';
+    if (hint) hint.textContent = (choice === 'auto' ? `Auto → ${t.name}` : `Theme: ${t.name}`) + (autoG ? ` · greeting: ${autoG}` : '');
   }
   themeSelect.addEventListener('change', () => { try { localStorage.setItem('swetTheme', themeSelect.value); } catch (e) {} renderPreview(); });
   bgSelect.addEventListener('change', renderPreview);
+  ['greetingInput', 'noteInput'].forEach(id => document.getElementById(id).addEventListener('input', () => renderPreview()));
+  document.getElementById('decorSelect').addEventListener('change', renderPreview);
+  try { const dv = localStorage.getItem('swetDecor'); if (dv) document.getElementById('decorSelect').value = dv; } catch (e) {}
+  document.getElementById('decorSelect').addEventListener('change', e => { try { localStorage.setItem('swetDecor', e.target.value); } catch (err) {} });
 
   // Day of week (0=Sun..6=Sat) -> recurring private slots
   // (Auto-adding a Saturday private was removed - it showed on days with no private.
@@ -624,9 +834,15 @@
     recurring.forEach(r => {
       if (!classes.some(c => c.level === 'Private')) classes.push(JSON.parse(JSON.stringify(r)));
     });
+    (PRIVATES[dateKey] || []).forEach(p => {
+      if (!classes.some(c => c.level === 'Private' && c.time === p.time)) {
+        classes.push(Object.assign({ name: 'Private', instructor: '', level: 'Private' }, JSON.parse(JSON.stringify(p))));
+      }
+    });
     sortClassesByTime();
     document.getElementById('dayInput').value = weekdayNameForISO(dateKey);
     document.getElementById('dateInput').value = dateKey;
+    document.getElementById('greetingInput').value = '';
     document.getElementById('presetSelect').value = dateKey;
     renderEditor();
     renderPreview();
@@ -642,6 +858,7 @@
       const res = await fetch(`schedule-data.json?_=${Date.now()}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      await loadPrivates();
       SCHEDULE_DATA = data;
       const dates = populateDateDropdown(data);
       const today = todayISO();
@@ -688,6 +905,7 @@
       const res = await fetch(`schedule-data.json?_=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      await loadPrivates();
       SCHEDULE_DATA = data;
       const select = document.getElementById('presetSelect');
       const current = select.value;
@@ -804,12 +1022,26 @@
         <div class="slot-left">
           <span class="slot-time">${c.time}</span>
           <span class="slot-class">${(isPrivate || /aerial/i.test(c.name) || /^\s*halloween/i.test(c.name)) ? '' : '<span class="aerial-tag">aerial </span>'}${c.name}</span>
-          <span class="slot-instructor">with ${c.instructor}</span>
+          ${c.instructor ? `<span class="slot-instructor">with ${c.instructor}</span>` : ''}
         </div>
         <span class="status-tag ${isAction ? 'action' : ''}${isPrivate ? 'private' : ''}">${isPrivate ? 'Booked' : c.level}</span>
       `;
       out.appendChild(slot);
     });
+
+    // Explicitly empty day in Recess -> show a friendly closed card instead of a blank graphic
+    const iso = document.getElementById('dateInput').value;
+    if (!classes.length && SCHEDULE_DATA && SCHEDULE_DATA.schedule[iso] && SCHEDULE_DATA.schedule[iso].length === 0) {
+      const slot = document.createElement('div');
+      slot.className = 'slot';
+      slot.innerHTML = `<div class="slot-left"><span class="slot-time">Studio update</span><span class="slot-class">No classes today</span><span class="slot-instructor">See you at the next one</span></div>`;
+      out.appendChild(slot);
+    }
+
+    const note = document.getElementById('noteInput').value.trim();
+    const noteEl = document.getElementById('noteOut');
+    noteEl.textContent = note;
+    noteEl.style.display = note ? 'block' : 'none';
 
     autoFitSchedule();
   }
@@ -836,7 +1068,7 @@
   }
 
   document.getElementById('dayInput').addEventListener('input', renderPreview);
-  document.getElementById('dateInput').addEventListener('input', renderPreview);
+  document.getElementById('dateInput').addEventListener('input', () => { document.getElementById('greetingInput').value = ''; renderPreview(); });
   document.getElementById('addClassBtn').addEventListener('click', () => {
     classes.push({ time: '', name: '', instructor: '', level: 'All Level' });
     renderEditor();
@@ -845,7 +1077,7 @@
 
   document.getElementById('addPrivateBtn').addEventListener('click', () => {
     dirty = true;
-    classes.push({ time: '12:30 PM', name: 'Private', instructor: 'Alicia', level: 'Private' });
+    classes.push({ time: '12:30 PM', name: 'Private', instructor: '', level: 'Private' });
     sortClassesByTime();
     renderEditor();
     renderPreview();

@@ -1,0 +1,25 @@
+{
+  "_note": "Private sessions (hidden from Recess's public list). Format: date -> [{time, instructor (optional)}]. Shown on the graphic as Private / Booked, no client names.",
+  "privates": {
+    "2026-11-22": [
+      {
+        "time": "12:30 PM"
+      }
+    ],
+    "2026-11-23": [
+      {
+        "time": "9:15 AM"
+      }
+    ],
+    "2026-11-29": [
+      {
+        "time": "4:00 PM"
+      }
+    ],
+    "2026-12-06": [
+      {
+        "time": "1:00 PM"
+      }
+    ]
+  }
+}
