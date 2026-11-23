@@ -1,38 +1,8 @@
 {
-  "generatedAt": "2026-11-23T01:59:20.344Z",
+  "generatedAt": "2026-11-23T10:50:52.957Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-11-22": [
-      {
-        "time": "9:00 AM",
-        "name": "Yoga",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "10:00 AM",
-        "name": "Flexibility",
-        "instructor": "Ally",
-        "level": "Intermediate",
-        "signature": false
-      },
-      {
-        "time": "11:15 AM",
-        "name": "Beginner",
-        "instructor": "Ally",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "5:00 PM",
-        "name": "Stretch",
-        "instructor": "Khadija",
-        "level": "All Level",
-        "signature": false
-      }
-    ],
     "2026-11-23": [
       {
         "time": "6:30 PM",
@@ -155,6 +125,36 @@
         "instructor": "Ally",
         "level": "All Level",
         "signature": false
+      },
+      {
+        "time": "3:00 PM",
+        "name": "Fly Foundations",
+        "instructor": "Simone",
+        "level": "Intermediate",
+        "signature": true
+      },
+      {
+        "time": "5:00 PM",
+        "name": "Stretch",
+        "instructor": "Jennet",
+        "level": "All Level",
+        "signature": false
+      }
+    ],
+    "2026-11-30": [
+      {
+        "time": "8:00 AM",
+        "name": "Pilates",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Fly",
+        "instructor": "Nai",
+        "level": "Advanced",
+        "signature": true
       }
     ],
     "2026-11-26": []
