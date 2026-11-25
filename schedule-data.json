@@ -1,24 +1,8 @@
 {
-  "generatedAt": "2026-11-25T02:48:47.040Z",
+  "generatedAt": "2026-11-25T13:01:39.583Z",
   "source": "https://swet-studio.recess.tv/embed/checkout/explore?displayClassIrl=list&hideMenu=true&class_type=IRL&displayDays=14",
   "timezone": "America/New_York",
   "schedule": {
-    "2026-11-24": [
-      {
-        "time": "5:30 PM",
-        "name": "Beginner",
-        "instructor": "Khadija",
-        "level": "All Level",
-        "signature": false
-      },
-      {
-        "time": "6:30 PM",
-        "name": "Fly",
-        "instructor": "Nai",
-        "level": "Advanced",
-        "signature": true
-      }
-    ],
     "2026-11-25": [
       {
         "time": "5:30 PM",
@@ -154,6 +138,22 @@
         "name": "Beginner",
         "instructor": "Bonnie",
         "level": "All Level",
+        "signature": false
+      },
+      {
+        "time": "6:30 PM",
+        "name": "Poses",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
+        "signature": false
+      }
+    ],
+    "2026-12-02": [
+      {
+        "time": "5:30 PM",
+        "name": "Pilates",
+        "instructor": "Bonnie",
+        "level": "Intermediate",
         "signature": false
       }
     ],
