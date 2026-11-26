@@ -1064,6 +1064,18 @@
       story.style.setProperty('--card-scale', scale);
     }
 
+    // Light days (1-2 tiles): drop the schedule about a third of the way into the empty space so the card isn't stuck at the top
+    const sched = document.getElementById('scheduleOut');
+    sched.style.marginTop = '';
+    const tiles = sched.children.length;
+    if (tiles >= 1 && tiles <= 2) {
+      const noteEl = document.getElementById('noteOut');
+      const last = (noteEl && noteEl.style.display !== 'none' && noteEl.textContent) ? noteEl : sched;
+      const bottom = last.getBoundingClientRect().bottom - story.getBoundingClientRect().top;
+      const free = 1920 - 38 - bottom;
+      if (free > 120) sched.style.marginTop = Math.round(free * 0.33) + 'px';
+    }
+
     story.style.transform = prevTransform;
   }
 
